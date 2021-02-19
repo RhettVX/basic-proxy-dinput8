@@ -34,11 +34,12 @@ extern "C"
     {
         if(OriginalFunction)
         {
-            uintptr_t target = 0x315d4;
+            uintptr_t target = 0x315d0;
             // TODO: This needed a bitwise OR instead of just a + for some reason. should investigate sometime
-            printf("OriginalFunction called.\nModuleBase: %p\nTarget: %p\nTargetAddr should be: %p\n\n", moduleBase, (void *)target, (void *)((uintptr_t)moduleBase | target));
+            // printf("OriginalFunction called.\nModuleBase: %p\nTarget: %p\nTargetAddr should be: %p\n\n", moduleBase, (void *)target, (void *)((uintptr_t)moduleBase | target));
+            printf("OriginalFunction called.\nModuleBase: %p\n\n", moduleBase);
             // system("pause"); // TODO: remove this for real use
-            TrampolineHook64((void *)((uintptr_t)moduleBase | target), (void *)TestFunc, 14);
+            TrampolineHook64((void *)((uintptr_t)moduleBase | target), (void *)TestFunc, 13);
             // system("pause"); // TODO: remove this for real use
             return OriginalFunction(hinst, dwVersion, riidltf, ppvOut, punkOuter);
         }
