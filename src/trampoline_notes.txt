@@ -8,22 +8,22 @@
 vvv
 
 000315xx 52              push   rdx
-000315xx 48 BA 00 		 movabs rdx, PTR_TO_OUR_NEW_CODE ; assuming our ptr is: 0x0000000000000000
-		 00 00 00
-		 00 00 00 
-		 00 			 
+000315xx 48 BA 00        movabs rdx, PTR_TO_OUR_NEW_CODE ; assuming our ptr is: 0x0000000000000000
+         00 00 00
+         00 00 00 
+         00              
 000315xx FF E2           jmp    rdx
 000315xx 5A              pop    rdx ; return original value to rdx
 
 -- Trampoline Memory:
 xxxxxxxx  [OUR CODE]
-		  ...
-		  ########### TODO POP RDX HERE THEN MAYBE PUSH AGAIN AFTER? #####################
+          ...
+          ########### TODO POP RDX HERE THEN MAYBE PUSH AGAIN AFTER? #####################
 xxxxxxxx  [ORIGINAL ASM] ; NOTE: CANNOT CONTAIN RELATIVE JMPS
-		  ... 	
-		  ########## PUSH RDX AGAIN #############			
+          ...   
+          ########## PUSH RDX AGAIN #############           
 xxxxxxxx  48 BA 00       movabs rdx, PTR_TO_OUR_ORIGINAL ; this is the addr of that 'pop rdx' instruction we injected
-		  00 00 00
-		  00 00 00
-		  00 			 
+          00 00 00
+          00 00 00
+          00             
 xxxxxxxx  FF E2          jmp    rdx
